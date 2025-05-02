@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StreamSend | AMD64 Connector for Data Streaming</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --spacing-sm: 1rem;
+            --spacing-md: 2rem;
+            --spacing-lg: 4rem;
+            --border-radius: 5px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: var(--dark-color);
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-sm);
+        }
+        
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem var(--spacing-sm);
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .logo span {
+            color: var(--secondary-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: var(--spacing-sm);
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #2980b9;
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .hero {
+            padding: 8rem 0 4rem;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: var(--spacing-sm);
+            color: var(--secondary-color);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto var(--spacing-md);
+            color: var(--dark-color);
+        }
+        
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-sm);
+        }
+        
+        .features {
+            padding: var(--spacing-lg) 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .section-title p {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+            color: #555;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-md);
+        }
+        
+        .feature-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: var(--spacing-md);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: var(--spacing-sm);
+            color: var(--secondary-color);
+        }
+        
+        .how-it-works {
+            padding: var(--spacing-lg) 0;
+            background-color: var(--light-color);
+        }
+        
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-md);
+        }
+        
+        .step {
+            text-align: center;
+            padding: var(--spacing-md);
+        }
+        
+        .step-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto var(--spacing-sm);
+        }
+        
+        .use-cases {
+            padding: var(--spacing-lg) 0;
+        }
+        
+        .use-case-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-md);
+        }
+        
+        .use-case-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+        
+        .use-case-img {
+            height: 200px;
+            background-color: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .use-case-content {
+            padding: var(--spacing-md);
+        }
+        
+        .use-case-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: var(--spacing-sm);
+            color: var(--secondary-color);
+        }
+        
+        .cta {
+            padding: var(--spacing-lg) 0;
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+        }
+        
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .cta .btn {
+            background-color: white;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            padding: 0.75rem 2rem;
+        }
+        
+        .cta .btn:hover {
+            background-color: var(--light-color);
+        }
+        
+        footer {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: var(--spacing-lg) 0 var(--spacing-md);
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: var(--spacing-sm);
+            color: var(--light-color);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-column ul li a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: var(--spacing-md);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bdc3c7;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            nav {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo">Stream<span>Send</span></div>
+            <nav>
+                <ul>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#patterns">Patterns</a></li>
+                    <li><a href="#file-types">File Types</a></li>
+                    <li><a href="#concepts">Concepts</a></li>
+                    <li><a href="https://docs.streamsend.io/" target="_blank">Documentation</a></li>
+                    <li><a href="#contact" class="btn">Contact Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Streamsend File-chunk Pipeline</h1>
+            <p>Stream files of any size and any content type through Kafka. Our new Rust-based file streaming pipeline for Linux and macOS delivers high-performance file transfers with enterprise reliability.</p>
+            <div class="hero-buttons">
+                <a href="#get-started" class="btn">Get Started</a>
+                <a href="#demo" class="btn btn-outline">Watch Demo</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Key Features</h2>
+                <p>Our Rust-based File-streaming Pipeline for Linux and macOS brings powerful capabilities to your file transfer needs</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>High Performance</h3>
+                    <p>Built with Rust for optimal performance, delivering exceptional throughput and reliability for streaming files of any size.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3>Flexible Deployment</h3>
+                    <p>Available as macOS executables, Linux executables, Docker container, or Kubernetes Custom Resource for maximum deployment flexibility.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>Any File, Any Size</h3>
+                    <p>Stream files of any type and any size - documents, audio, video, images - by efficiently chunking them into manageable Kafka messages.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Automatic Retries</h3>
+                    <p>Built-in retry mechanism ensures reliable file transfers even over unstable network connections - "click send and forget" with confidence.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔧</div>
+                    <h3>Parallel Processing</h3>
+                    <p>Chunks of files are sent in parallel using Kafka topic partitions and consumer groups for maximum throughput and efficiency.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📁</div>
+                    <h3>Data Integrity</h3>
+                    <p>Automatic MD5 checksum verification ensures files are reassembled perfectly at the destination with data integrity guaranteed.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="section-title">
+                <h2>How It Works</h2>
+                <p>The Streamsend File-chunk Pipeline works by efficiently chunking and reassembling files</p>
+            </div>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Uploader</h3>
+                    <p>The Uploader splits input files into fixed-size binary chunks and sends them as Kafka messages with metadata headers.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Stream Through Kafka</h3>
+                    <p>Messages flow through your Kafka cluster with all the benefits of Kafka's reliability, scalability, and security.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Downloader</h3>
+                    <p>The Downloader consumes these chunks, reorders them if needed, and reassembles the original file at the destination.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Verify Integrity</h3>
+                    <p>MD5 checksums are calculated and verified to ensure the reassembled file is identical to the source file.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="use-cases" id="use-cases">
+        <div class="container">
+            <div class="section-title">
+                <h2>Use Cases</h2>
+                <p>The Streamsend File-chunk Pipeline excels in these challenging file transfer scenarios</p>
+            </div>
+            <div class="use-case-cards">
+                <div class="use-case-card">
+                    <div class="use-case-img">
+                        <img src="/api/placeholder/400/200" alt="Unreliable Networks" />
+                    </div>
+                    <div class="use-case-content">
+                        <h3>Unreliable Networks</h3>
+                        <p>Transfer large files from remote field teams with poor network connections. Our "click send and forget" approach handles service interruptions automatically with infinite retries.</p>
+                    </div>
+                </div>
+                <div class="use-case-card">
+                    <div class="use-case-img">
+                        <img src="/api/placeholder/400/200" alt="Document Transfer" />
+                    </div>
+                    <div class="use-case-content">
+                        <h3>Files Alongside Events</h3>
+                        <p>Insurance providers can send updated policy PDFs alongside event messages from microservices. Use your existing Kafka infrastructure for both events and file transfers.</p>
+                    </div>
+                </div>
+                <div class="use-case-card">
+                    <div class="use-case-img">
+                        <img src="/api/placeholder/400/200" alt="Global Distribution" />
+                    </div>
+                    <div class="use-case-content">
+                        <h3>Global Distribution</h3>
+                        <p>Stream files from one region to another through a central Kafka cluster. Fan-in from many uploaders to one downloader or fan-out from one uploader to many downloaders with ease.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="patterns" id="patterns">
+        <div class="container">
+            <div class="section-title">
+                <h2>File Streaming Patterns</h2>
+                <p>The Streamsend File-chunk Pipeline enables three powerful patterns for enterprise file streaming</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🌪️</div>
+                    <h3>Data Funnels</h3>
+                    <p>Many Uploaders stream to a Kafka topic for one Downloader. Perfect for retail point-of-sale terminals, dealership networks, or field devices that need to funnel data to a centralized system.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3>Files Alongside Events</h3>
+                    <p>Add file streaming capabilities to your existing event streaming network. Use the same Kafka infrastructure for both events and file transfers, simplifying your data architecture.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📡</div>
+                    <h3>Data Streaming from the Edge</h3>
+                    <p>Leverage Kafka's robust data-send semantics to ensure files always stream eventually, even on unreliable networks. Enjoy infinite retries, guaranteed delivery, flexible encryption, compression, and configurable in-flight connections.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="concepts" id="concepts">
+        <div class="container">
+            <div class="section-title">
+                <h2>Core Concepts</h2>
+                <p>Understanding the fundamentals of the Streamsend File-chunk Pipeline</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🧩</div>
+                    <h3>Binary Chunking</h3>
+                    <p>Files are split along binary chunk boundaries (not based on lines or objects), allowing any file type to be streamed efficiently.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔗</div>
+                    <h3>Uploader-Downloader Pairing</h3>
+                    <p>A complete pipeline consists of one (or more) Uploaders that produce chunks and one (or more) Downloaders that consume and reassemble them.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📂</div>
+                    <h3>Subdirectory Preservation</h3>
+                    <p>Subdirectory structures are preserved from source to destination, enabling additional metadata organization.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚙️</div>
+                    <h3>Multiple Deployments</h3>
+                    <p>Choose from macOS executables, Linux executables, Docker container, or Kubernetes deployment.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta" id="contact">
+        <div class="container">
+            <h2>Ready to Transform Your File Transfers?</h2>
+            <a href="#contact-form" class="btn">Get in Touch</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>StreamSend</h3>
+                    <ul>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#blog">Blog</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Product</h3>
+                    <ul>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#roadmap">Roadmap</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#docs">Documentation</a></li>
+                        <li><a href="#api">API Reference</a></li>
+                        <li><a href="#tutorials">Tutorials</a></li>
+                        <li><a href="#support">Support</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="#terms">Terms of Service</a></li>
+                        <li><a href="#privacy">Privacy Policy</a></li>
+                        <li><a href="#cookies">Cookie Policy</a></li>
+                        <li><a href="#security">Security</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2025 StreamSend. All rights reserved.
+            </div>
+        </div>
+    </footer>
+</html>
